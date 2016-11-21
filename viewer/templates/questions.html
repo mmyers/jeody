@@ -1,0 +1,9 @@
+{% extends "index.html" %}
+
+{% block title %}Questions By Show{% endblock %}
+
+{% block main %}
+{% for question in questions %}
+<h1>{{question.answer}}</h1>
+{% endfor %}
+{% endblock %}
