@@ -1,0 +1,23 @@
+{% extends "index.html" %}
+
+{% block title %}Question Detail{% endblock %}
+
+{% block main %}
+<h1>{{question.text}}</h1>
+<div id="spoiler" style="display:none"> 
+{{question.answer}}
+</div> 
+<button title="Click to show/hide answer" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Show/hide</button>
+
+<p>Originally aired on {{question.airDate}} (show number {{question.showNumber}}) in the category of {{question.category}} as part of {{question.theRound}} for a value of {{question.value}}. </p>
+
+<h3>Similar Questions</h3>
+{% for ques in similarquestions %}
+<h4><a href="/questions/{{ques.id}}">{{ques.text}}</a></h4>
+{% endfor %}
+
+<h3>Trend Questions</h3>
+{% for ques in trendquestions %}
+<h4><a href="/questions/{{ques.id}}">{{ques.text}}</a></h4>
+{% endfor %}
+{% endblock %}

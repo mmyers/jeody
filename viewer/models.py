@@ -12,3 +12,4 @@ class Question(models.Model):
 	showNumber = models.IntegerField()
 	airDate = models.DateTimeField()
 	category = models.CharField(max_length=100)
+	#clusterNum = models.IntegerField()

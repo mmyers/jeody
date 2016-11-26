@@ -3,7 +3,8 @@
 {% block title %}Questions By Show{% endblock %}
 
 {% block main %}
+<h1>Click on any of the questions to see the full question details</h1>
 {% for question in questions %}
-<h1>{{question.answer}}</h1>
+<p><a href="/questions/{{question.id}}">{{question.text}}</a></p>
 {% endfor %}
 {% endblock %}

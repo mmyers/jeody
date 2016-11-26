@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block title %}Prepare for Jeopardy{% endblock %}
+
+{% block main %}
+<h1>By the magic of clustering a data mining we've determined that questions in Jeopardy typically fall into {{clusters|length}} clusters. Below are 10 questions from each of the clusters so as to help you prepare.</h1>
+{% for cluster in clusters %}
+<h3>{{cluster.name}}</h3>
+<ul>
+{% for ques in cluster.questions %}
+<li><a href="/questions/{{ques.id}}">{{ques.text}}</a></li>
+{% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}
