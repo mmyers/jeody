@@ -13,4 +13,11 @@ This is a web application that displays Jeopardy data on the web and uses data m
 
 ## Run migration (Do this every time there's a new commit)
 
-1. Run `python manage.py migrate`
+1. Run `python manage.py makemigrations`
+2. Run `python manage.py migrate`
+
+## Update the data
+
+0. Flush the database `python manage.py flush`
+1. Import category data `python manage.py loaddata category.json`
+2. Import questions `python manage.py loaddata final2.json`
