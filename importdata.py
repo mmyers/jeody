@@ -11,9 +11,10 @@ def getData(fileName):
         return data
 
 class Question:
-	def __init__(self, text, value, answer, theRound, showNumber, airDate, category):
+	def __init__(self, text, value, normalizedValue, answer, theRound, showNumber, airDate, category):
 		self.text = text
 		self.value = value
+		self.normalizedValue = normalizedValue
 		self.answer = answer
 		self.theRound = theRound
 		self.showNumber = showNumber
@@ -21,7 +22,7 @@ class Question:
 		self.category = category
 
 	def toJSON(self, number):
-		return '{\"model\": \"viewer.question\", \"pk\": ' + str(number) + ", \"fields\": {\"text\": \"" + self.text + "\", \"value\": \"" + self.value + "\", \"answer\": \"" + self.answer + "\", \"theRound\": \"" + self.theRound + "\", \"showNumber\": \"" + self.showNumber + "\", \"airDate\": \"" + self.airDate.strftime("%Y-%m-%d") + "\", \"category\": " + str(self.category) + "}}"
+		return '{\"model\": \"viewer.question\", \"pk\": ' + str(number) + ", \"fields\": {\"text\": \"" + self.text + "\", \"value\": \"" + self.value + "\", \"normalizedValue\": \"" + self.normalizedValue + "\", \"answer\": \"" + self.answer + "\", \"theRound\": \"" + self.theRound + "\", \"showNumber\": \"" + self.showNumber + "\", \"airDate\": \"" + self.airDate.strftime("%Y-%m-%d") + "\", \"category\": " + str(self.category) + "}}"
 
 class Category:
 	def __init__(self, category):
@@ -59,7 +60,7 @@ if sys.argv[2] == "questions":
 			#print row[6]
 			#print row[6].replace('\"', "")
 			#q = Question(text=row[5].replace('"', '\\"'), value=row[4].replace('\"', '"').replace('"', '\\"'), answer=row[6].replace('\\"', "").replace('\"', ""), theRound=row[2].replace('\"', '"').replace('"', '\\"'), showNumber=row[0].replace('\"', '"').replace('"', '\\"'), airDate=datetime.strptime(row[1], '%Y-%m-%d'), category=row[3].replace('\"', '"').replace('"', '\\"'))
-			q = Question(text=row[6].replace('"', '\\"').replace("\\'", "").replace("\'", ""), value=row[4].replace('\"', '"').replace('"', '\\"'), answer=row[7].replace('\\"', "").replace('\"', "").replace("\\'", "").replace("\'", ""), theRound=row[1].replace('\"', '"').replace('"', '\\"'), showNumber=row[0].replace('\"', '"').replace('"', '\\"'), airDate=datetime.strptime(row[1], '%Y-%m-%d'), category=categoryPKByStr(data, row[3].replace('\"', '"').replace('"', '\\"')))
+			q = Question(text=row[6].replace('"', '\\"').replace("\\'", "").replace("\'", ""), value=row[4].replace('\"', '"').replace('"', '\\"'), normalizedValue=row[5], answer=row[7].replace('\\"', "").replace('\"', "").replace("\\'", "").replace("\'", ""), theRound=row[1].replace('\"', '"').replace('"', '\\"'), showNumber=row[0].replace('\"', '"').replace('"', '\\"'), airDate=datetime.strptime(row[1], '%Y-%m-%d'), category=categoryPKByStr(data, row[3].replace('\"', '"').replace('"', '\\"')))
 			f.write(q.toJSON(i))
 			f.write(',')
 			i += 1

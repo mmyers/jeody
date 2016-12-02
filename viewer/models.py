@@ -10,6 +10,7 @@ class QuestionCategory(models.Model):
 class Question(models.Model):
 	text = models.CharField(max_length=1000)
 	value = models.CharField(max_length=10)
+	normalizedValue = models.CharField(max_length=10, default=0)
 	answer = models.CharField(max_length=500)
 	theRound = models.CharField(max_length=100)
 	showNumber = models.IntegerField()
