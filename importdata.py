@@ -28,13 +28,13 @@ class Category:
 		self.category = category
 
 	def toJSON(self, number):
-		return '{\"model\": \"viewer.category\", \"pk\": ' + str(number) + ", \"fields\": {\"category\": \"" + self.category + "\"}}"
+		return '{\"model\": \"viewer.questioncategory\", \"pk\": ' + str(number) + ", \"fields\": {\"category\": \"" + self.category + "\"}}"
 
 def categoryPKByStr(data, strRep):
 	for datum in data:
 		if strRep == datum["fields"]["category"]:
 			return datum["pk"]
-	return 0
+	return 1
 
 if len(sys.argv) < 3:
 	print "Usage: python importdata.py path/to/csv/file questions/category"
@@ -44,7 +44,7 @@ if sys.argv[2] == "questions" and len(sys.argv) < 4:
 	print "Usage: python importdata.py path/to/csv/file questions path/to/category.json"
 
 if sys.argv[2] == "questions":
-	data = getData('data.json')
+	data = getData('category.json')
 	f = open('final.json', 'w')
 	f.write('[')
 	with open(sys.argv[1], 'rb') as csvfile:
@@ -52,8 +52,8 @@ if sys.argv[2] == "questions":
 		i = 0
 		for row in reader:
 			#if 'Mystery Train' in row[6]:
-				print row[6]
-				print row[6].replace('\"', "")
+				#print row[6]
+				#print row[6].replace('\"', "")
 			#q = Question(text=row[5].replace('"', '\\"'), value=row[4].replace('\"', '"').replace('"', '\\"'), answer=row[6].replace('\\"', "").replace('\"', ""), theRound=row[2].replace('\"', '"').replace('"', '\\"'), showNumber=row[0].replace('\"', '"').replace('"', '\\"'), airDate=datetime.strptime(row[1], '%Y-%m-%d'), category=categoryPKByStr(data, row[3].replace('\"', '"').replace('"', '\\"')))
 			#if 'Mystery Train' in row[6]:
 			#print row[6]
@@ -64,16 +64,22 @@ if sys.argv[2] == "questions":
 			f.write(',')
 			i += 1
 elif sys.argv[2] == "category":
-	f = open('data.json', 'w')
+	f = open('category.json', 'w')
 	f.write('[')
 	with open(sys.argv[1], 'rb') as csvfile:
 		reader = csv.reader(csvfile)
+		c = Category(category="Unicode Error")
+		f.write(c.toJSON(0))
+		f.write(',')
 		i = 1
+		s = set()
 		for row in reader:
-			c = Category(category=row[3].replace('\"', '"').replace('"', '\\"'))
-			f.write(c.toJSON(i))
-			f.write(',')
-			i += 1
+			if row[3].replace('\"', '"').replace('"', '\\"') not in s:
+				c = Category(category=row[3].replace('\"', '"').replace('"', '\\"'))
+				f.write(c.toJSON(i))
+				f.write(',')
+				i += 1
+				s.add(row[3].replace('\"', '"').replace('"', '\\"'))
 
 f.seek(-1, os.SEEK_END)
 f.truncate()
