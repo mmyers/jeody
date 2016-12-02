@@ -55,3 +55,35 @@ def prepare(request):
 	#	cluster.append({'name': str(i+1), 'questions': [qs[i]]})
 	#print cluster
 	return render(request, 'prepare.html', {'clusters': cluster})
+
+def categoriesIndex(request):
+        questions = Question.objects.all();
+        indices = random.sample(range(len(questions)), 20)
+        cats = [questions[i].category for i in indices]
+        #cats = [q.category for q in Question.objects.all().order_by('category').distinct('category')]
+        #rand = random.randint(0, cats.count()-11)
+        #tcategories = cats[rand:rand+10]
+        return render(request, 'categories.html', {'categories': cats})
+
+def categoryDetail(request, catId):
+        cat = QuestionCategory.objects.get(id=catId)
+		ques = Question.objects.get(category=catId)
+		commonwords = trend(ques)
+        #qcount = len(ques)
+        return render(request, 'categorydetail.html', {'cat': cat.category, 'questions': ques, 'words': commonwords})
+
+def trend(ques):
+	stopwords = ['a', 'an', 'the', 'is', 'at', 'to']
+	ques.sort(key = lambda q: q.airDate)
+	topics = []
+	wordtopics = [] # which topic is responsible for which word (estimated)
+	for q in ques:
+		# preprocessing: remove punctuation and stopwords
+		text = q.text.translate(None, string.punctuation)
+		words = [word for word in q.text.split() if word.lower not in stopwords]
+		#words += q.answer.split()
+		for (w in words):
+			# random initialization
+			
+	return ""
+
