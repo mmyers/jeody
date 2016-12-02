@@ -44,7 +44,7 @@ def prepare(request):
 	cluster = []
 	#qcount = Question.objects.all().count()
 	for i in range(67):
-		qs = Question.objects.filter(testClusterNum__exact = i)[:10]
+		qs = Question.objects.filter(DBSCANJaccardDistance__exact = i)[:10]
 		temp = []
 		for j in qs:
 			temp.append(j)
