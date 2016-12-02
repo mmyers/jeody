@@ -51,10 +51,15 @@ if sys.argv[2] == "questions":
 		reader = csv.reader(csvfile)
 		i = 0
 		for row in reader:
-			if 'Mystery Train' in row[6]:
+			#if 'Mystery Train' in row[6]:
 				print row[6]
 				print row[6].replace('\"', "")
-			q = Question(text=row[5].replace('"', '\\"'), value=row[4].replace('\"', '"').replace('"', '\\"'), answer=row[6].replace('\\"', "").replace('\"', ""), theRound=row[2].replace('\"', '"').replace('"', '\\"'), showNumber=row[0].replace('\"', '"').replace('"', '\\"'), airDate=datetime.strptime(row[1], '%Y-%m-%d'), category=categoryPKByStr(data, row[3].replace('\"', '"').replace('"', '\\"')))
+			#q = Question(text=row[5].replace('"', '\\"'), value=row[4].replace('\"', '"').replace('"', '\\"'), answer=row[6].replace('\\"', "").replace('\"', ""), theRound=row[2].replace('\"', '"').replace('"', '\\"'), showNumber=row[0].replace('\"', '"').replace('"', '\\"'), airDate=datetime.strptime(row[1], '%Y-%m-%d'), category=categoryPKByStr(data, row[3].replace('\"', '"').replace('"', '\\"')))
+			#if 'Mystery Train' in row[6]:
+			#print row[6]
+			#print row[6].replace('\"', "")
+			#q = Question(text=row[5].replace('"', '\\"'), value=row[4].replace('\"', '"').replace('"', '\\"'), answer=row[6].replace('\\"', "").replace('\"', ""), theRound=row[2].replace('\"', '"').replace('"', '\\"'), showNumber=row[0].replace('\"', '"').replace('"', '\\"'), airDate=datetime.strptime(row[1], '%Y-%m-%d'), category=row[3].replace('\"', '"').replace('"', '\\"'))
+			q = Question(text=row[6].replace('"', '\\"').replace("\\'", "").replace("\'", ""), value=row[4].replace('\"', '"').replace('"', '\\"'), answer=row[7].replace('\\"', "").replace('\"', "").replace("\\'", "").replace("\'", ""), theRound=row[1].replace('\"', '"').replace('"', '\\"'), showNumber=row[0].replace('\"', '"').replace('"', '\\"'), airDate=datetime.strptime(row[1], '%Y-%m-%d'), category=categoryPKByStr(data, row[3].replace('\"', '"').replace('"', '\\"')))
 			f.write(q.toJSON(i))
 			f.write(',')
 			i += 1
