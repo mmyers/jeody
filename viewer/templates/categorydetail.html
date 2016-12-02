@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% block title %}Category Detail: {{cat}}{% endblock %}
+
+{% block main %}
+<h1>Click on any of the questions to see the full question details</h1>
+{% for question in questions %}
+<p><a href="/questions/{{question.id}}">${{question.normal_value}}: {{question.text}}</a></p>
+<h2>{{question.text}}</h2>
+<div id="spoiler" style="display:none"> 
+{{question.answer}}
+</div> 
+<button title="Click to show/hide answer" type="button" onclick="if(document.getElementById('spoiler') .style.display=='none') {document.getElementById('spoiler') .style.display=''}else{document.getElementById('spoiler') .style.display='none'}">Show/hide</button>
+
+<p>Originally aired on {{question.airDate}} (show number {{question.showNumber}}) as part of {{question.theRound}} for a value of {{question.value}}. </p>
+
+{% endfor %}
+
+{% endblock %}
