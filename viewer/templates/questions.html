@@ -5,6 +5,6 @@
 {% block main %}
 <h1>Click on any of the questions to see the full question details</h1>
 {% for question in questions %}
-<p><a href="/questions/{{question.id}}">{{question.text}}</a></p>
+<p><a href="/questions/{{question.id}}">${{question.value}}, {{question.category.category}}:<br>{{question.text}}</a></p>
 {% endfor %}
 {% endblock %}

@@ -57,20 +57,20 @@ def prepare(request):
 	return render(request, 'prepare.html', {'clusters': cluster})
 
 def categoriesIndex(request):
-        questions = Question.objects.all();
-        indices = random.sample(range(len(questions)), 20)
-        cats = [questions[i].category for i in indices]
-        #cats = [q.category for q in Question.objects.all().order_by('category').distinct('category')]
-        #rand = random.randint(0, cats.count()-11)
-        #tcategories = cats[rand:rand+10]
-        return render(request, 'categories.html', {'categories': cats})
+	questions = Question.objects.all();
+	indices = random.sample(range(len(questions)), 20)
+	cats = [questions[i].category for i in indices]
+	#cats = [q.category for q in Question.objects.all().order_by('category').distinct('category')]
+	#rand = random.randint(0, cats.count()-11)
+	#tcategories = cats[rand:rand+10]
+	return render(request, 'categories.html', {'categories': cats})
 
 def categoryDetail(request, catId):
-        cat = QuestionCategory.objects.get(id=catId)
-		ques = Question.objects.get(category=catId)
-		commonwords = trend(ques)
-        #qcount = len(ques)
-        return render(request, 'categorydetail.html', {'cat': cat.category, 'questions': ques, 'words': commonwords})
+	cat = QuestionCategory.objects.get(id=catId)
+	ques = Question.objects.get(category=catId)
+	commonwords = trend(ques)
+	#qcount = len(ques)
+	return render(request, 'categorydetail.html', {'cat': cat.category, 'questions': ques, 'words': commonwords})
 
 def trend(ques):
 	stopwords = ['a', 'an', 'the', 'is', 'at', 'to']
@@ -82,7 +82,7 @@ def trend(ques):
 		text = q.text.translate(None, string.punctuation)
 		words = [word for word in q.text.split() if word.lower not in stopwords]
 		#words += q.answer.split()
-		for (w in words):
+		#for (w in words):
 			# random initialization
 			
 	return ""
