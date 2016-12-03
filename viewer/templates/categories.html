@@ -3,8 +3,9 @@
 {% block title %}Categories{% endblock %}
 
 {% block main %}
-<h1>Click on any category to see a list of questions</h1>
+<h3>Click on any category to see a list of questions</h3>
+<p>{{categories|length}} total categories</p>
 {% for cat in categories %}
-<p><a href="/categories/{{cat}}">{{cat}}</a></p>
+<p><a href="/categories/{{cat.cat.id}}">{{cat.count}}: {{cat.cat.category}}</a></p>
 {% endfor %}
 {% endblock %}
